@@ -12,7 +12,7 @@ class Connect {
 
     public static function getInstance() {
         if (self::$instance == NULL) {
-            self::$instance = new \PDO('mysql:host=localhost;dbname=student;charset=utf8','root', '');
+            self::$instance = new \PDO('mysql:host=localhost;dbname=students;charset=utf8','root', '');
         }
         return self::$instance;
        
