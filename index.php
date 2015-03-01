@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title></title>
-    </head>
-    <body>
+
         <?php
+		include 'before.html';
         include 'application/config/autoloader.php';
 
         $student = application\StudentFactory::createStudent();
