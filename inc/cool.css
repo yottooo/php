@@ -4,3 +4,24 @@
 ul li{
 	display:inline
 }
+ a:{text-decoration:none}
+ a:link { color: #06F}
+ a:visited { color: #09F}
+ a:active { color: #0CF}
+a:hover{text-decoration:underline; }
+
+table {
+border: silver;
+border-radius:15px;
+width:100%;
+
+}
+
+ tr,td,th{
+width:20%;
+	text-align:center;
+	border: 1px solid;
+border-radius:15px;
+border-color: #09F;
+
+}
