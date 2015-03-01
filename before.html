@@ -1,4 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php session_start();?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /s>
@@ -13,6 +14,21 @@
 <li><a href="discipline.html">Дисциплини</a></li>
 <li><a href="students.html">Студенти</a></li>
 <li><a href="Ases.html">Оценки</a></li>
-<li><a href="users.html">Потребители</a></li>
+<li><a href="users.html">Потребители</a></li>&nbsp;
+    <li>
+      <?php
+if (!isset($_SESSION["user_name"]))
+{?>
+      <form action="login.php" method="post">
+        <pre>Потребител:    Парола:              </pre>
+        <input type="text" name="user_name"  />
+        <input type="password" name="user_password"  />
+        <input type="submit" value="Вход" />
+        &nbsp;
+      </form>
+      <?php }
+else echo $_SESSION["user_name"]." ".$_SESSION["user_lname"]. " <a href='logout.php'>Изход</a>&nbsp;";
+?>
+    </li>
 </ul></center>
 
