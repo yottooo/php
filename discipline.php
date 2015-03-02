@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<?php include 'before.html';?>
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -25,7 +21,19 @@ and open the template in the editor.
     <th width="5" scope="col">Хорариум(У)</th>
     <th width="8" scope="col">Операции</th>
   </tr>
+    <?php
+    $mysqli = new mysqli('localhost', 'root', '', 'students'); 
+$mysqli->set_charset('utf8'); 
+if($_GET["disc-ime"]!=""){
+$result = $mysqli->query("SELECT * FROM subjects where subject_name='". $_GET["disc-ime"] ."'");
+} else {$result = $mysqli->query("SELECT * FROM subjects ");}
+$mysqli->close();
+while ($row=$result->fetch_assoc())
+{
+    echo "<tr><th>".$row["subject_id"]."</th><th>".$row["subject_name"]."</th><th>".$row["subject_workload_lectures"]."</th><th>".$row["subject_workload_exercises"]."</th><th><a >DEL</a>"." "."<a>Редакция </a></th>";
+}
+   
+?>
 </table>
-
     </body>
 </html>
