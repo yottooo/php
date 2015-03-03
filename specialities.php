@@ -5,13 +5,13 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php include 'before.html';?>
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+        <script type="text/javascript">
+        function removespeciality(num)
+{
+   if (confirm("Изтриване на данни за специалноста!?"))
+     self.location.href="specialitiesdel.php?del_id="+num;
+}    
+        </script>
     <a href="specialitieadd.html">Добавяне на Специалност</a><br>
     <form action="">
        Име:<input type="text" name="spec-ime" ><br>
@@ -33,7 +33,7 @@ $result = $mysqli->query("SELECT * FROM specialities where speciality_name_long=
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-  echo "<tr><th>".$row["speciality_id"]."</th>"."<th>".$row["speciality_name_long"]."</th><th>".$row["speciality_name_long"]."<th><a >DEL</a>"." "."<a>Редакция </a></th>";
+  echo "<tr><th>".$row["speciality_id"]."</th>"."<th>".$row["speciality_name_long"]."</th><th>".$row["speciality_name_long"]."<th><a href='javascript:removespeciality(".$row['speciality_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
 }
             ;
     ?>

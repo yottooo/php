@@ -5,13 +5,13 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php include "before.html" ?>
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+        <script type="text/javascript">
+        function removeuser(num)
+{
+   if (confirm("Изтриване на данни за Потребителя!?"))
+     self.location.href="usersdel.php?del_id="+num;
+}    
+        </script>
     <a href="useradd.html">Добавяне на Потребител</a><br>
     <form action="">
       Потребителско Име:<input type="text" name="user-ime" ><br>
@@ -37,7 +37,7 @@ if($_GET["user-ime"]!="" && $_GET["user-mail"]!=""){"SELECT FROM users where use
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-    echo "<tr><th>".$row["user_id"]."</th>"."<th>".$row["user_name"]."</th><th>".$row["user_email"]."<th><a >DEL</a>"." "."<a>Редакция </a></th>";
+    echo "<tr><th>".$row["user_id"]."</th>"."<th>".$row["user_name"]."</th><th>".$row["user_email"]."<th><a href='javascript:removeuser(".$row['user_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
 }
             ;
     ?>

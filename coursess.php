@@ -1,5 +1,12 @@
 <?php include 'before.html';?>
-    <a href="courseadd.html">Нов курс</a><br>
+        <script type="text/javascript">
+        function removecourse(num)
+{
+   if (confirm("Изтриване на данни за курса!?"))
+     self.location.href="coursessdel.php?del_id="+num;
+}    
+        </script>
+    <a href="courseadd.php">Нов курс</a><br>
     <form method="GET">
        Име на Курс:<input type="text" name="kurs-ime" ><button type="submit">Търси</button>
     </form><br>
@@ -18,7 +25,7 @@ $result = $mysqli->query("SELECT * FROM courses where course_name='". $_GET["kur
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-    echo "<tr><th>".$row["course_id"]."</th>"."<th>".$row["course_name"]."</th><th><a >DEL</a>"." "."<a>Редакция </a></th>";
+    echo "<tr><th>".$row["course_id"]."</th>"."<th>".$row["course_name"]."</th><th><a href='javascript:removecourse(".$row['course_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
 }
             
     ?>
