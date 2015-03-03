@@ -20,7 +20,7 @@ while ($row=$result->fetch_assoc())
 {
     echo "<tr><th>".$row["course_id"]."</th>"."<th>".$row["course_name"]."</th><th><a >DEL</a>"." "."<a>Редакция </a></th>";
 }
-            ;
+            
     ?>
           </table>
     </body>

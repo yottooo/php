@@ -5,6 +5,13 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+        function removedis(num)
+{
+   if (confirm("Изтриване на данни за Дисциплинa!?"))
+     self.location.href="disciplinedel.php?del_id="+num;
+}    
+        </script>
     </head>
     <body>
     <p>Дисциплини<br>
@@ -30,7 +37,7 @@ $result = $mysqli->query("SELECT * FROM subjects where subject_name='". $_GET["d
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-    echo "<tr><th>".$row["subject_id"]."</th><th>".$row["subject_name"]."</th><th>".$row["subject_workload_lectures"]."</th><th>".$row["subject_workload_exercises"]."</th><th><a >DEL</a>"." "."<a>Редакция </a></th>";
+    echo "<tr><th>".$row["subject_id"]."</th><th>".$row["subject_name"]."</th><th>".$row["subject_workload_lectures"]."</th><th>".$row["subject_workload_exercises"]."</th><th><a href='javascript:removedis(".$row['subject_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
 }
    
 ?>
