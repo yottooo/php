@@ -4,7 +4,13 @@
 {
    if (confirm("Изтриване на данни за курса!?"))
      self.location.href="coursessdel.php?del_id="+num;
-}    
+};   
+       function editcourse(num)
+{
+
+   if (confirm("Редактиране на данни за курса!?"))
+     self.location.href="courseedit.php?edit_id="+num;
+}  
         </script>
     <a href="courseadd.php">Нов курс</a><br>
     <form method="GET">
@@ -25,7 +31,7 @@ $result = $mysqli->query("SELECT * FROM courses where course_name='". $_GET["kur
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-    echo "<tr><th>".$row["course_id"]."</th>"."<th>".$row["course_name"]."</th><th><a href='javascript:removecourse(".$row['course_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
+    echo "<tr><th>".$row["course_id"]."</th>"."<th>".$row["course_name"]."</th><th><a href='javascript:removecourse(".$row['course_id'].")'>DEL</a>"." "."<a href='javascript:editcourse(".$row['course_id'].")'>Редакция </a></th>";
 }
             
     ?>
