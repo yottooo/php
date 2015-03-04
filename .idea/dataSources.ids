@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - students@localhost" uuid="47eee4d3-2f5b-4085-ae32-9dc7ed664d19">
+    <database-info product="MySQL" version="5.5.41-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="students"/>
+    <table name="courses" schema="" catalog="students" type="TABLE">
+      <column name="course_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="course_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="0JjQvNC1INC90LAg0LrRg9GA0YHQsCAo0J/RgNC40LzQtdGAOiDQn9GK0YDQstC4INC60YPRgNGBLCDQmNC90YTQvtGA0LzQsNGC0LjQutCwINC30LDQtNC+0YfQvdC+KQ=="/>
+      <primary-key name="PRIMARY" columns="course_id"/>
+      <index name="course_name_unique" unique="true" columns="course_name"/>
+    </table>
+    <table name="specialities" schema="" catalog="students" type="TABLE">
+      <column name="speciality_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="speciality_name_long" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" remarks="0JjQvNC1INC90LAg0YHQv9C10YbQuNCw0LvQvdC+0YHRgtGC0LAgKNC/0YrQu9C90L4p"/>
+      <column name="speciality_name_short" sqlType="VARCHAR" precision="16" scale="0" nullable="true" jdbcType="12" remarks="0JjQvNC1INC90LAg0YHQv9C10YbQuNCw0LvQvdC+0YHRgtGC0LAgKNC60YDQsNGC0LrQvik="/>
+      <primary-key name="PRIMARY" columns="speciality_id"/>
+      <index name="speciality_name_long_UNIQUE" unique="true" columns="speciality_name_long"/>
+      <index name="speciality_name_short_UNIQUE" unique="true" columns="speciality_name_short"/>
+    </table>
+    <table name="students" schema="" catalog="students" type="TABLE">
+      <column name="student_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="student_course_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="0JjQlCDQvdCwINC60YPRgNGB0LAsINCyINC60L7QudGC0L4g0LUg0LfQsNC/0LjRgdCw0L0g0YHRgtGD0LTQtdC90YLQsA=="/>
+      <column name="student_speciality_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="student_fname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12" remarks="0KHQvtCx0YHRgtCy0LXQvdC+INC40LzQtSDQvdCwINGB0YLRg9C00LXQvdGC0LA="/>
+      <column name="student_lname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12" remarks="0KTQsNC80LjQu9C40Y8g0L3QsCDRgdGC0YPQtNC10L3RgtCw"/>
+      <column name="student_email" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12" remarks="RS1tYWlsINCw0LTRgNC10YEg0L3QsCDRgdGC0YPQtNC10L3RgtCw"/>
+      <column name="student_fnumber" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="true" jdbcType="4" def="MDAwMDAwMDAwMA==" remarks="0KTQsNC60YPQu9GC0LXRgtC10L0g0L3QvtC80LXRgCDQvdCwINGB0YLRg9C00LXQvdGC0LA="/>
+      <column name="student_education_form" sqlType="ENUM" precision="2" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="student_id"/>
+      <index name="student_email_UNIQUE" unique="true" columns="student_email"/>
+      <index name="student_name_fn_UNIQUE" unique="true" columns="student_fname,student_lname,student_fnumber"/>
+      <index name="student_course_id" unique="false" columns="student_course_id"/>
+      <index name="student_speciality_id" unique="false" columns="student_speciality_id"/>
+    </table>
+    <table name="students_assessments" schema="" catalog="students" type="TABLE">
+      <column name="sa_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="sa_student_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="0JjQlCDQvdCwINGB0YLRg9C00LXQvdGC"/>
+      <column name="sa_subject_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="0JjQlCDQvdCwINC/0YDQtdC00LzQtdGC"/>
+      <column name="sa_workload_lectures" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="0JTQtdC50YHRgtCy0LjRgtC10LvQvdC+INC/0L7RgdC10YLQtdC90Lgg0YfQsNGB0L7QstC1INGF0L7RgNCw0YDQuNC8INC30LAg0LvQtdC60YbQuNC4ICjQvtGCINGB0YLRg9C00LXQvdGC0LAp"/>
+      <column name="sa_workload_exercises" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="0JTQtdC50YHRgtCy0LjRgtC10LvQvdC+INC/0L7RgdC10YLQtdC90Lgg0YXQvtGA0LDRgNC40YPQvCDRh9Cw0YHQvtCy0LUg0LfQsCDRg9C/0YDQsNC20L3QtdC90LjRjyAo0L7RgiDRgdGC0YPQtNC10L3RgtCwKQ=="/>
+      <column name="sa_assesment" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="0J7RhtC10L3QutCwINC90LAg0YHRgtGD0LTQtdC90YLQsCDQt9CwINC60L7QvdC60YDQtdGC0L3QsNGC0LAg0LTQuNGB0YbQuNC/0LvQuNC90LA="/>
+      <primary-key name="PRIMARY" columns="sa_id"/>
+      <index name="sa_student_subject_UNIQUE" unique="true" columns="sa_student_id,sa_subject_id"/>
+      <index name="sa_student_id" unique="false" columns="sa_student_id"/>
+      <index name="sa_subject_id" unique="false" columns="sa_subject_id"/>
+    </table>
+    <table name="subjects" schema="" catalog="students" type="TABLE">
+      <column name="subject_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="subject_name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12" remarks="0JjQvNC1INC90LAg0L/RgNC10LTQvNC10YI="/>
+      <column name="subject_workload_lectures" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" def="MA==" remarks="0KXQvtGA0LDRgNC40YPQvCDRh9Cw0YHQvtCy0LUg0LfQsCDQu9C10LrRhtC40Lg="/>
+      <column name="subject_workload_exercises" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" def="MA==" remarks="0KXQvtGA0LDRgNC40YPQvCDRh9Cw0YHQvtCy0LUg0LfQsCDRg9C/0YDQsNC20L3QtdC90LjRjw=="/>
+      <primary-key name="PRIMARY" columns="subject_id"/>
+      <index name="subject_name_UNIQUE" unique="true" columns="subject_name"/>
+    </table>
+    <table name="users" schema="" catalog="students" type="TABLE">
+      <column name="user_id" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="user_name" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12" remarks="0J/QvtGC0YDQtdCx0LjRgtC10LvRgdC60L4g0LjQvNC1"/>
+      <column name="user_fname" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12" remarks="0KHQvtCx0YHRgtCy0LXQvdC+INC40LzQtSDQvdCwINC/0L7RgtGA0LXQsdC40YLQtdC70Y8="/>
+      <column name="user_lname" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12" remarks="0KTQsNC80LjQu9GPINC90LAg0L/QvtGC0YDQtdCx0LjRgtC10LvRjw=="/>
+      <column name="user_email" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12" remarks="RS1tYWlsINCw0LTRgNC10YEg0L3QsCDQv9C+0YLRgNC10LHQuNGC0LXQu9GP"/>
+      <column name="user_password" sqlType="CHAR" precision="40" scale="0" nullable="true" jdbcType="1" remarks="U0hBLTEgaGFzaCDQvdCwINC/0LDRgNC+0LvQsNGC0LA="/>
+      <primary-key name="PRIMARY" columns="user_id"/>
+      <index name="user_email_UNIQUE" unique="true" columns="user_email"/>
+      <index name="user_name_UNIQUE" unique="true" columns="user_name"/>
+    </table>
+  </data-source>
+</component>

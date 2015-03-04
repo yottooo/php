@@ -1,8 +1,8 @@
 <?php
 function __autoload($className) {
-    $filename = $className . ".php";
-   
+    $classNameReplace = str_replace('\\','/', $className);
+    $filename = $classNameReplace . ".php";
     if (is_readable($filename)) {
-        require $filename;
+        require_once $filename;
     }
 }
