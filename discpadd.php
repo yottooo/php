@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+<?php include 'before.html';?>
     <p>Добавяне на Дисциплина<br>
-    <form action="">
+    <form action="" method="POST">
        Име:<input type="text" name="disc-ime" ><br>
        Хорариум(Л):<input type="text" name="disc-L" ><br>
       Хорариум(У): <input type="text" name="disc-U" ><br>
@@ -20,3 +8,15 @@ and open the template in the editor.
     </form>
     </body>
 </html>
+           <?php
+           $mysqli = new mysqli('localhost', 'root', '', 'students');
+$mysqli->set_charset('utf8'); 
+                    if (!($stmt = $mysqli->prepare("INSERT INTO subjects(subject_name,subject_workload_lectures,subject_workload_exercises) VALUES(?,?,?)"))) {
+                        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+                    }
+
+                        if (!$stmt->bind_param("sii", $_POST["disc-ime"],$_POST["disc-L"],$_POST["disc-U"])) {
+                            echo "Binding parameters failed: (" . $stmt1->errno . ") " . $stmt1->error;
+                        }
+                        if ($stmt->execute()){ echo "Записа беше успешен :)";}       
+?>

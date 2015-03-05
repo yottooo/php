@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <?php include 'before.html';?>
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <script type="text/javascript">
         function removedis(num)
 {
@@ -12,10 +8,9 @@
      self.location.href="disciplinedel.php?del_id="+num;
 }    
         </script>
-    </head>
-    <body>
+
     <p>Дисциплини<br>
-    <a href="discpadd.html">Нова дисциплина</a><br>
+    <a href="discpadd.php">Нова дисциплина</a><br>
     <form action="">
        Име:<input type="text" name="disc-ime" ><br>
       <button type="submit">Търси</button>

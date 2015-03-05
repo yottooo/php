@@ -12,7 +12,7 @@ and open the template in the editor.
      self.location.href="specialitiesdel.php?del_id="+num;
 }    
         </script>
-    <a href="specialitieadd.html">Добавяне на Специалност</a><br>
+    <a href="specialitieadd.php">Добавяне на Специалност</a><br>
     <form action="">
        Име:<input type="text" name="spec-ime" ><br>
 <button type="submit">Търси</button>
@@ -33,7 +33,7 @@ $result = $mysqli->query("SELECT * FROM specialities where speciality_name_long=
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-  echo "<tr><th>".$row["speciality_id"]."</th>"."<th>".$row["speciality_name_long"]."</th><th>".$row["speciality_name_long"]."<th><a href='javascript:removespeciality(".$row['speciality_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
+  echo "<tr><th>".$row["speciality_id"]."</th>"."<th>".$row["speciality_name_long"]."</th><th>".$row["speciality_name_short"]."<th><a href='javascript:removespeciality(".$row['speciality_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
 }
             ;
     ?>
