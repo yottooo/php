@@ -23,13 +23,16 @@
       <?php
     $mysqli = new mysqli('localhost', 'root', '', 'students'); 
 $mysqli->set_charset('utf8');
-$result = $mysqli->query("SELECT * FROM users ");
-/*if($_GET["user_name"]=="" || $_GET["user_email"]==""){
-if($_GET["user_email"]==""){$result = $mysqli->query("SELECT * FROM users where user_name='". $_GET["user_name"] ."'");}
-else if($_GET["user_name"]=="" ){$result = $mysqli->query("SELECT * FROM users where user_email='". $_GET["user_email"] ."'");}
-} else
-if($_GET["user_name"]!="" && $_GET["user_email"]!=""){"SELECT FROM users where user_email='". $_GET["user_email"] ."' and user_name='". $_GET["user_name"] ."'";}
-   */
+
+$query=("SELECT * FROM users where 1");
+if(isset($_GET['user_name']) &&!empty($_GET['user_name'])){
+   $query .= sprintf(" AND user_name = '%s'",$_GET['user_name']);
+  }
+  if(isset($_GET['user_email']) && !empty($_GET['user_email'])){
+   $query .= sprintf(" AND user_email ='%s'",$_GET['user_email']);
+  }
+
+ printf($query); $result=$mysqli->query($query);
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
