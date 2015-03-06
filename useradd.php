@@ -20,6 +20,6 @@ $mysqli->set_charset('utf8');
 
                         if (!$stmt->bind_param("sssss", $_POST["user-ime"],$_POST["user-sime"],$_POST["user-fime"],$_POST["user-pass"],$_POST["user-mail"])) {
                             echo "Binding parameters failed: (" . $stmt1->errno . ") ";
-                        }
+                        } 
                         if ($stmt->execute()){ echo "Записа беше успешен :)";}       
 ?>

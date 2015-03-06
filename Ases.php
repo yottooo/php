@@ -1,4 +1,8 @@
-<?php include "before.html" ?>
+<?php include "before.html"; 
+ $mysqli = new mysqli('localhost', 'root', '', 'students');
+$mysqli->set_charset('utf8');
+$result = $mysqli->query('SELECT * FROM specialities ');
+?>
         <script type="text/javascript">
         function removecourse(num)
 {
@@ -10,10 +14,9 @@
 <form action="">
 Име:<input type="text" name="stu-ime"><br>
 Дисциплина:<select name="ass-disciplina">
-         <option value="">asdasd</option>
-         <option value="">asdads</option>
-         <button type="submit">Търси</button>
+<?php while($row=$result->fetch_assoc()){echo "<option value=".$row['speciality_name_long'].">".$row['speciality_name_long']."</option>";} ?>      
      </select>
+<button type="submit">Търси</button>
 </form><br>
 <table width="200" border="1">
   <tr>
@@ -24,19 +27,20 @@
     <th scope="col">Операции</th>
   </tr>
       <?php
- $mysqli = new mysqli('localhost', 'root', '', 'students');
-$mysqli->set_charset('utf8');
 
-            if ($_GET["stu-ime"] != "") {
-                $result = $mysqli->query("SELECT STUDENT_ID, STUDENT_FNAME, STUDENT_LNAME,subject_name, sa_assesment,sa_id FROM students JOIN students_assessments ON SA_STUDENT_ID = STUDENT_ID JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
- WHERE student_fname='" . $_GET["stu-ime"] . "'");
-            } else {
-                $result = $mysqli->query("SELECT STUDENT_ID, STUDENT_FNAME, STUDENT_LNAME,subject_name, sa_assesment,sa_id FROM students JOIN students_assessments ON SA_STUDENT_ID = STUDENT_ID JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
-");}
-            $mysqli->close();
+$query=("SELECT STUDENT_ID, STUDENT_FNAME, STUDENT_LNAME,subject_name, sa_assesment,sa_id FROM students JOIN students_assessments ON SA_STUDENT_ID = STUDENT_ID JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
+ WHERE 1");
+if(isset($_GET['stu-ime']) &&!empty($_GET['stu-ime'])){
+   $query .= sprintf(" AND STUDENT_FNAME = '%s'",$_GET['stu-ime']);
+  }
+  if(isset($_GET['ass-disciplina']) && !empty($_GET['ass-disciplina'])){
+   $query .= sprintf(" AND subject_name ='%s'",$_GET['ass-disciplina']);
+  }
+  printf($query); $result=$mysqli->query($query);
+    $mysqli->close();
 
           while ($row = $result->fetch_assoc()) {
-              echo "<tr><th>" . $row["STUDENT_ID"] . "</th><th>" . $row["STUDENT_FNAME"] . " " . $row["STUDENT_LNAME"] . "</th><th>" . $row["subject_name"] . "</th><th>" . $row["sa_assesment"] . "</th><th><a href='javascript:removeass(" . $row['sa_id'] . ")'>DEL</a>" . " " . "<a>Редакция </a></th><br>";
+              echo "<tr><th>" . $row["STUDENT_ID"] . "</th> <th>" . $row["STUDENT_FNAME"] . " " . $row["STUDENT_LNAME"] . "</th> <th>" . $row["subject_name"] . "</th> <th>" . $row["sa_assesment"] . "</th> <th><a href='javascript:removeass(" . $row['sa_id'] . ")'>DEL</a>" . " " . "<a>Редакция </a></th></tr>";
  }
     ?>
 </table>
