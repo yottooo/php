@@ -11,6 +11,12 @@ and open the template in the editor.
    if (confirm("Изтриване на данни за специалноста!?"))
      self.location.href="specialitiesdel.php?del_id="+num;
 }    
+ function editspeciality(num)
+{
+
+   if (confirm("Редактиране на данни за специалноста!?"))
+     self.location.href="specialitieedit.php?edit_id="+num;
+}  
         </script>
     <a href="specialitieadd.php">Добавяне на Специалност</a><br>
     <form action="">
@@ -33,7 +39,7 @@ $result = $mysqli->query("SELECT * FROM specialities where speciality_name_long=
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-  echo "<tr><th>".$row["speciality_id"]."</th>"."<th>".$row["speciality_name_long"]."</th><th>".$row["speciality_name_short"]."<th><a href='javascript:removespeciality(".$row['speciality_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
+  echo "<tr><th>".$row["speciality_id"]."</th>"."<th>".$row["speciality_name_long"]."</th><th>".$row["speciality_name_short"]."<th><a href='javascript:removespeciality(".$row['speciality_id'].")'>DEL</a>"." "."<a href='javascript:editspeciality(".$row['speciality_id'].")'>Редакция </a></th>";
 }
             ;
     ?>

@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+<?php include "before.html" ?>
     <p>Редактиране на Потребител<br>
-    <form action="">
+    <form action="" method="post">
       Потребителско Име:<input type="text" name="user-ime" ><br>
       Собствено Име:<input type="text" name="user-sime" ><br>
       Фамилно Име:<input type="text" name="user-fime" ><br>
@@ -23,3 +11,16 @@ and open the template in the editor.
     </form>
     </body>
 </html>
+          <?php
+           
+    if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
+        
+        $mysqli = new mysqli('localhost', 'root', '', 'students');
+        $mysqli->set_charset('utf8'); 
+
+        var_dump($mysqli->query("UPDATE users SET user_name='".$_POST['user-ime']."', user_fname='".$_POST['user-sime']."', user_lname='".$_POST['user-fime']."', user_email='".$_POST['user-mail']."', user_password='".$_POST['user-pass']."' WHERE user_id=".$_REQUEST['edit_id']));      
+        $mysqli->close();
+        
+        header('Location: users.php');
+    }       
+?>

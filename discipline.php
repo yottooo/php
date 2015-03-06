@@ -7,6 +7,12 @@
    if (confirm("Изтриване на данни за Дисциплинa!?"))
      self.location.href="disciplinedel.php?del_id="+num;
 }    
+function editdis(num)
+{
+
+   if (confirm("Редактиране на данни за Дисциплинa!?"))
+     self.location.href="discpedit.php?edit_id="+num;
+}  
         </script>
 
     <p>Дисциплини<br>
@@ -32,7 +38,7 @@ $result = $mysqli->query("SELECT * FROM subjects where subject_name='". $_GET["d
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-    echo "<tr><th>".$row["subject_id"]."</th><th>".$row["subject_name"]."</th><th>".$row["subject_workload_lectures"]."</th><th>".$row["subject_workload_exercises"]."</th><th><a href='javascript:removedis(".$row['subject_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
+    echo "<tr><th>".$row["subject_id"]."</th><th>".$row["subject_name"]."</th><th>".$row["subject_workload_lectures"]."</th><th>".$row["subject_workload_exercises"]."</th><th><a href='javascript:removedis(".$row['subject_id'].")'>DEL</a>"." "."<a href='javascript:editdis(".$row['subject_id'].")'>Редакция </a></th>";
 }
    
 ?>

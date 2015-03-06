@@ -6,6 +6,12 @@
    if (confirm("Изтриване на данни за Потребителя!?"))
      self.location.href="usersdel.php?del_id="+num;
 }    
+function edituser(num)
+{
+
+   if (confirm("Редактиране на данни за Дисциплинa!?"))
+     self.location.href="useredit.php?edit_id="+num;
+}  
         </script>
     <a href="useradd.php">Добавяне на Потребител</a><br>
     <form action="">
@@ -36,7 +42,7 @@ if(isset($_GET['user_name']) &&!empty($_GET['user_name'])){
 $mysqli->close();
 while ($row=$result->fetch_assoc())
 {
-    echo "<tr><th>".$row["user_id"]."</th>"."<th>".$row["user_name"]."</th><th>".$row["user_email"]."<th><a href='javascript:removeuser(".$row['user_id'].")'>DEL</a>"." "."<a>Редакция </a></th>";
+    echo "<tr><th>".$row["user_id"]."</th>"."<th>".$row["user_name"]."</th><th>".$row["user_email"]."<th><a href='javascript:removeuser(".$row['user_id'].")'>DEL</a>"." "."<a href='javascript:edituser(".$row['user_id'].")'>Редакция </a></th>";
 }
             
     ?>

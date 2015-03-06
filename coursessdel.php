@@ -8,4 +8,4 @@ echo "Данните за посочения курс са изтрити.<br>";
 
 $mysqli->close();
 ?>
-<script>setTimeout('self.location.href="coursess.php"',2100);</script>
+<script>setTimeout('self.location.href="coursess.php"',1100);</script>
