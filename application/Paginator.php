@@ -1,5 +1,4 @@
-<?php
-namespace application;
+<?php namespace application;
 
 class Paginator
 {
@@ -11,8 +10,11 @@ class Paginator
     private $total;
     protected $query;
 
-    public function __construct($connection, $query,$limit=10)
-    {
+    public function __construct($connection, $query,$limit=15)
+    {  
+       if(!isset($_GET['page'])){
+           $_GET['page']=1;
+       }
         $this->connection = $connection;
         if (empty($_GET['page']) || is_numeric($_GET['page'])) {
             $this->page = $_GET['page'];
@@ -24,15 +26,15 @@ class Paginator
         } else {
             throw  new InvalidArgumentException("set sql query");
         }
-        $this->limit=$limit;
+        $this->limit=$limit; 
     }
 
     public function pagination()
-    {
+    { 
         if (isset($this->page)) {
             $this->start = ($this->page - 1) * $this->limit;
         }
-        $query = $this->connection->query($this->query . "LIMIT $this->start, $this->limit");
+        $query = $this->connection->query($this->query . " LIMIT {$this->start},{$this->limit}");
         return $query;
     }
 
