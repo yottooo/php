@@ -4,20 +4,23 @@ namespace application;
 /**
  * validate specialitie
  */
-class Specialitie {
+class Specialitie
+{
 
     private $name;
 
-    public function __construct($name = '') {
+    public function __construct($name = '')
+    {
         $this->name = $name;
     }
 
     /**
-     * 
+     *
      * @param type $long if $abb is true return long name else short name
-     * 
+     *
      */
-    public function getName($long) {
+    public function getName($long)
+    {
         if ($long) {
             echo 'Информатика' . '<br>';
         } else {

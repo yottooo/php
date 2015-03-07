@@ -21,7 +21,8 @@ class Search {
      * @return string SQL Return all student from Databese
      * @static
      */
-    public static function getAllStudentForGrid() {
+    public static function getAllStudentForGrid($student_name=null) {
+
         return "SELECT STUDENT_ID, STUDENT_FNAME, STUDENT_LNAME, STUDENT_FNUMBER, STUDENT_EDUCATION_FORM, SPECIALITY_NAME_SHORT,
               COURSE_NAME, SA_STUDENT_ID,
               GROUP_CONCAT( SUBJECT_NAME ORDER BY SUBJECT_ID ) AS LISTOFSUBJECTS,

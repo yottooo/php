@@ -1,14 +1,29 @@
 <?php
+//session_start();
 include 'before.html';
 include 'application/config/autoloader.php';
 $connect = application\Connect::getInstance();
-if(isset($_GET['search'])==true){
-  $query = application\Search::searchStudent($_GET['student_name']);
+echo '<pre>'.print_r($_SERVER,true).'</pre>';
+
+
+if(isset($_GET['hidden'])==1){
+
+    $query = application\Search::searchStudent($_GET['student_name']);
+    $_SESSION['search_query']="student_name={$_GET['student_name']}&searchBySubject=1&searchByCourse=1";
+    $_SESSION['search_by_name']= htmlentities($_GET['student_name']);
+
 }else{
-    $query = application\Search::getAllStudentForGrid();
+    if(isset($_GET['student_name'])){
+        $query = application\Search::searchStudent($_GET['student_name']);
+    }else{
+        $query = application\Search::getAllStudentForGrid();
+    }
+
 }
+echo  $_SESSION['search_query'].'<br>';
+
 echo $query;
-//$studentGrid = $connect->query($query);
+
 $allSubject = $connect->query(application\Search::getAllSubjects());
 $allCourses = $connect->query(application\Search::getAllCourses());
 $num_subject = $allSubject->rowCount();
@@ -16,7 +31,7 @@ $num_subject = $allSubject->rowCount();
 
 ?>
 <form action="" method="get" >
-    <input type="text" name="student_name" /><br>
+    <input type="text" name="student_name" value="<?php if(empty($_SESSION['search_by_name'])): echo $_SESSION['search_by_name']; endif;?>" /><br>
     <div>
         <select name="searchBySubject">
             <?php foreach ($allSubject as $subject): ?>
@@ -29,6 +44,7 @@ $num_subject = $allSubject->rowCount();
                 <option value="<?= $course['course_id']; ?>"><?= $course['course_name']; ?></option>
             <?php endforeach; ?>
         </select><br>
+        <input type="hidden" name="hidden" value="1"/>
         <input type="submit" value="Търсене" name="search" />
     </div>
 </form>
@@ -48,9 +64,9 @@ $num_subject = $allSubject->rowCount();
 
 
 
-$studentGridQuery = application\Search::getAllStudentForGrid();
+//$studentGridQuery = application\Search::getAllStudentForGrid();
 
-$paginator = new \application\Paginator($connect, $studentGridQuery);
+$paginator = new \application\Paginator($connect, $query,$_SESSION['search_query']);
 
 $pagin_result = $paginator->pagination();
 $grid = new application\StudentTable();

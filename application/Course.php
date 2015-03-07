@@ -20,6 +20,7 @@ class Course {
         
         echo 'add '.htmlentities($this->name);
     }
+
     
     public function delete(){
         echo 'delete '.$this->name;
