@@ -3,35 +3,39 @@
 include 'before.html';
 include 'application/config/autoloader.php';
 $connect = application\Connect::getInstance();
-echo '<pre>'.print_r($_SERVER,true).'</pre>';
+//echo '<pre>'.print_r($_SERVER,true).'</pre>';
 
 
-if(isset($_GET['hidden'])==1){
+if (isset($_GET['hidden']) == 1) {
 
     $query = application\Search::searchStudent($_GET['student_name']);
-    $_SESSION['search_query']="student_name={$_GET['student_name']}&searchBySubject=1&searchByCourse=1";
-    $_SESSION['search_by_name']= htmlentities($_GET['student_name']);
+    $_SESSION['search_query'] = "student_name={$_GET['student_name']}&searchBySubject=1&searchByCourse=1";
+    $_SESSION['search_by_name'] = htmlentities($_GET['student_name']);
 
-}else{
-    if(isset($_GET['student_name'])){
+} else {
+    if (isset($_GET['student_name'])) {
         $query = application\Search::searchStudent($_GET['student_name']);
-    }else{
+    } else {
+        unset($_SESSION['search_query']);
+        unset($_SESSION['search_by_name']);
         $query = application\Search::getAllStudentForGrid();
     }
 
 }
-echo  $_SESSION['search_query'].'<br>';
-
 echo $query;
 
+
 $allSubject = $connect->query(application\Search::getAllSubjects());
+
 $allCourses = $connect->query(application\Search::getAllCourses());
 $num_subject = $allSubject->rowCount();
 
 
 ?>
-<form action="" method="get" >
-    <input type="text" name="student_name" value="<?php if(empty($_SESSION['search_by_name'])): echo $_SESSION['search_by_name']; endif;?>" /><br>
+<form action="" method="get">
+    <input type="text" name="student_name"
+           value="<?php if (!empty($_SESSION['search_by_name'])): echo $_SESSION['search_by_name']; endif; ?>"/><br>
+
     <div>
         <select name="searchBySubject">
             <?php foreach ($allSubject as $subject): ?>
@@ -45,7 +49,7 @@ $num_subject = $allSubject->rowCount();
             <?php endforeach; ?>
         </select><br>
         <input type="hidden" name="hidden" value="1"/>
-        <input type="submit" value="Търсене" name="search" />
+        <input type="submit" value="Търсене" name="search"/>
     </div>
 </form>
 <?php
@@ -63,14 +67,19 @@ $num_subject = $allSubject->rowCount();
  */
 
 
-
 //$studentGridQuery = application\Search::getAllStudentForGrid();
-
-$paginator = new \application\Paginator($connect, $query,$_SESSION['search_query']);
+$search_query = null;
+if (isset($_SESSION['search_query'])) {
+    $search_query = $_SESSION['search_query'];
+}
+$paginator = new \application\Paginator($connect, $query, $search_query);
 
 $pagin_result = $paginator->pagination();
 $grid = new application\StudentTable();
-$grid->createTable($pagin_result, $allSubject, $num_subject);
+foreach ($allSubject as $row) {
+    echo "<td colspan='3'>" . $row['subject_name'] . "</td>";
+}
+$grid->createTable($pagin_result, $connect->query(application\Search::getAllSubjects()), $num_subject);
 $paginator->links();
 ?>
 
