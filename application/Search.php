@@ -5,7 +5,6 @@ namespace application;
 class Search
 {
 
-    private $studentData;
 
     public function __construct(Student $student)
     {
@@ -48,6 +47,15 @@ class Search
         return 'SELECT subject_id, subject_name FROM subjects ORDER BY subject_id ASC';
     }
 
+    public static function getAllSpeciality()
+    {
+        return 'SELECT speciality_id ,speciality_name_long FROM specialities ORDER BY speciality_id ASC';
+    }
+    public static function getSpecialityById($id)
+    {
+        return  "SELECT speciality_id ,speciality_name_long FROM specialities WHERE speciality_id= {$id}";
+    }
+
     public static function getAllCourses()
     {
         return 'SELECT course_id, course_name FROM courses ORDER BY course_id ASC';
@@ -59,25 +67,62 @@ class Search
      * @param int $course
      * @return string
      */
-    public static function searchStudent($studentName, $subject = 1, $course = 1)
+    public static function searchStudent($studentName, $speciality = 0, $course = 0)
     {
         $studentName_clean = trim(htmlentities($studentName));
-        $query_search_by_name='';
-         $studentName_clean_size = explode(' ',$studentName_clean);
-        var_dump($studentName_clean_size);
-
-        if (sizeof($studentName_clean_size) == 1) {
-            $query_search_by_name = "WHERE  STUDENT_FNAME LIKE '{$studentName_clean_size[0]}%'
-                       OR
-                       STUDENT_LNAME LIKE '{$studentName_clean_size[0]}%'";
-        } elseif (sizeof($studentName_clean) >0) {
-            $query_search_by_name = "WHERE  STUDENT_FNAME LIKE '%{$studentName_clean_size[0]}%'
-                      AND
-                       STUDENT_LNAME LIKE '{$studentName_clean_size[1]}%'";
+        $query_search_by_name = '';
+        $studentName_clean_array = explode(' ', $studentName_clean);
+        /**
+         * validate and normalize student name
+         */
+        if(strlen( $studentName_clean)>0){
+        foreach ($studentName_clean_array as $name) {
+            if (strlen($name) > 0) {
+                $studentName_fname_lname[] = trim($name);
+            }
         }
 
+        if (sizeof($studentName_fname_lname) == 1) {
 
-        return "SELECT STUDENT_ID, STUDENT_FNAME,STUDENT_LNAME ,
+            $query_search_by_name = "  STUDENT_FNAME LIKE '{$studentName_fname_lname[0]}%'";
+        } elseif (sizeof($studentName_fname_lname) > 0) {
+
+            $query_search_by_name = " STUDENT_FNAME LIKE '%{$studentName_fname_lname[0]}%'
+                      AND
+                       STUDENT_LNAME LIKE '{$studentName_fname_lname[1]}%'";
+        }}
+        /**
+         * normalize search by course and speciality
+         */
+
+        if ($speciality ==0) {
+            $speciality_search = null;
+        } else if(strlen( $studentName_clean)>0){
+            $speciality_search = 'AND speciality_id=' . $speciality;
+        }
+        else {
+            $speciality_search = 'speciality_id=' . $speciality;
+        }
+        if ($course == 0) {
+            $course_search = null;
+        } else if(strlen( $studentName_clean)>0) {
+            $course_search = 'AND course_id=' . $course;
+        }
+        else{
+            $course_search = 'course_id=' . $course;
+        }
+        if($speciality>0 && $course>0){
+            $speciality_search = 'speciality_id=' . $speciality.' AND ';
+            $course_search = 'course_id=' . $course;
+        }
+        if(isset($studentName_fname_lname) && sizeof($studentName_fname_lname)>0 && $speciality>0 && $course>0 )
+        {
+            $speciality_search = 'AND speciality_id=' . $speciality.' AND ';
+            $course_search = 'course_id=' . $course;
+
+        }
+
+        return "SELECT STUDENT_ID, STUDENT_FNAME,STUDENT_LNAME ,speciality_id,course_id,
                       STUDENT_FNUMBER, STUDENT_EDUCATION_FORM, SPECIALITY_NAME_SHORT,
                       COURSE_NAME, SA_STUDENT_ID,
                       GROUP_CONCAT( SUBJECT_NAME ORDER BY SUBJECT_ID ) AS LISTOFSUBJECTS,
@@ -91,7 +136,11 @@ class Search
                       JOIN courses C ON C.COURSE_ID = STUDENT_COURSE_ID
                       JOIN students_assessments ON SA_STUDENT_ID = STUDENT_ID
                       JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
+                      WHERE
                         {$query_search_by_name}
+
+                        {$speciality_search}
+                        {$course_search}
                 GROUP BY 1
 
 	";
