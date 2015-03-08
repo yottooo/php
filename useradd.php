@@ -15,11 +15,11 @@
            $mysqli = new mysqli('localhost', 'root', '', 'students');
 $mysqli->set_charset('utf8'); 
                     if (!($stmt = $mysqli->prepare("INSERT INTO users(user_name,user_fname,user_lname,user_password,user_email) VALUES(?,?,?,?,?)"))) {
-                        echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+                        echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
                     }
 
                         if (!$stmt->bind_param("sssss", $_POST["user-ime"],$_POST["user-sime"],$_POST["user-fime"],$_POST["user-pass"],$_POST["user-mail"])) {
-                            echo "Binding parameters failed: (" . $stmt1->errno . ") ";
+                            echo "Binding parameters failed: (" . $mysqli->errno . ") ";
                         } 
                         if ($stmt->execute()){ echo "Записа беше успешен :)";}       
 ?>
