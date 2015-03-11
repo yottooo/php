@@ -30,16 +30,14 @@ $result2 = $mysqli->query("SELECT * FROM students order by student_fname ASC");
 </html>
 <?php
 if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
-    if (!($stmt = $mysqli->prepare("INSERT INTO students_assessments (sa_student_id,sa_subject_id,sa_workload_lectures,sa_workload_exercises,sa_assesment) VALUES(?,?,?,?,?)"))) {
-        echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-    }
-
-    if (!$stmt->bind_param("iiiii",$_POST['ime'],$_POST['disc'],$_POST['ass-L'],$_POST['ass-U'],$_POST['ass-Ocenka'])) {
-        echo "Binding parameters failed: (" . $mysqli->errno . ") ";
-    }
-    if ($stmt->execute()) {
+    if ($mysqli->query("UPDATE students_assessments SET sa_subject_id='".$_POST['disc']."', sa_workload_lectures='".$_POST['ass-L']."', sa_workload_exercises='".$_POST['ass-U']."', sa_assesment='".$_POST['ass-Ocenka']."' 
+        where sa_id=".$_REQUEST['edit_id'])){
         echo "Записа беше успешен :)";
     }
+
+
+
+
 header('Location: Ases.php');
 
 }

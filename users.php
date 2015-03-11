@@ -6,12 +6,13 @@
    if (confirm("Изтриване на данни за Потребителя!?"))
      self.location.href="usersdel.php?del_id="+num;
 }    
+
 function edituser(num)
 {
 
-   if (confirm("Редактиране на данни за Дисциплинa!?"))
+   if (confirm("Редактиране на данни за Потребителя!?"))
      self.location.href="useredit.php?edit_id="+num;
-}  
+} 
         </script>
     <a href="useradd.php">Добавяне на Потребител</a><br>
     <form action="">

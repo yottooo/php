@@ -11,6 +11,7 @@ if ($row = $result->fetch_assoc())
 {
 	$_SESSION["user_name"]=htmlspecialchars(stripslashes($row["user_name"]));
 	$_SESSION["user_lname"]=htmlspecialchars(stripslashes($row["user_lname"]));
+
 }
 else $_SESSION["error"]="Невалидно потребителско име или грешна парола!";
 

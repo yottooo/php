@@ -14,6 +14,7 @@
            <?php
            $mysqli = new mysqli('localhost', 'root', '', 'students');
 $mysqli->set_charset('utf8'); 
+ if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
                     if (!($stmt = $mysqli->prepare("INSERT INTO users(user_name,user_fname,user_lname,user_password,user_email) VALUES(?,?,?,?,?)"))) {
                         echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
                     }
@@ -22,4 +23,5 @@ $mysqli->set_charset('utf8');
                             echo "Binding parameters failed: (" . $mysqli->errno . ") ";
                         } 
                         if ($stmt->execute()){ echo "Записа беше успешен :)";}       
+ }
 ?>

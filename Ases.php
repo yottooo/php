@@ -1,20 +1,24 @@
 <?php include "before.html"; 
  $mysqli = new mysqli('localhost', 'root', '', 'students');
 $mysqli->set_charset('utf8');
-$result = $mysqli->query('SELECT * FROM specialities ');
+$result = $mysqli->query('SELECT * FROM subjects ');
 ?>
         <script type="text/javascript">
-        function removecourse(num)
+        function removeass(num)
 {
    if (confirm("Изтриване на данните за оценката!?"))
      self.location.href="asesdel.php?del_id="+num;
-}    
+}            function editass(num)
+{
+   if (confirm("Изтриване на данните за оценката!?"))
+     self.location.href="asesedit.php?edit_id="+num;
+}  
         </script>
 <a href="asesadd.php">Нова оценка</a><br>
 <form action="">
 Име:<input type="text" name="stu-ime"><br>
 Дисциплина:<select name="ass-disciplina">
-<?php while($row=$result->fetch_assoc()){echo "<option value=".$row['speciality_name_long'].">".$row['speciality_name_long']."</option>";} ?>      
+<?php while($row=$result->fetch_assoc()){echo "<option value=".$row['subject_name'].">".$row['subject_name']."</option>";} ?>      
      </select>
 <button type="submit">Търси</button>
 </form><br>
@@ -40,7 +44,7 @@ if(isset($_GET['stu-ime']) &&!empty($_GET['stu-ime'])){
     $mysqli->close();
 
           while ($row = $result->fetch_assoc()) {
-              echo "<tr><th>" . $row["STUDENT_ID"] . "</th> <th>" . $row["STUDENT_FNAME"] . " " . $row["STUDENT_LNAME"] . "</th> <th>" . $row["subject_name"] . "</th> <th>" . $row["sa_assesment"] . "</th> <th><a href='javascript:removeass(" . $row['sa_id'] . ")'>DEL</a>" . " " . "<a>Редакция </a></th></tr>";
+              echo "<tr><th>" . $row["STUDENT_ID"] . "</th> <th>" . $row["STUDENT_FNAME"] . " " . $row["STUDENT_LNAME"] . "</th> <th>" . $row["subject_name"] . "</th> <th>" . $row["sa_assesment"] . "</th> <th><a href='javascript:removeass(" . $row['sa_id'] . ")'>DEL</a>" . " " . "<a href='javascript:editass(" . $row['sa_id'] . ")'>Редакция </a></th></tr>";
  }
     ?>
 </table>

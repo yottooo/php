@@ -41,7 +41,7 @@ if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
         echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
     }
 
-    if (!$stmt->bind_param("ssisiii", $_POST['stu-ime'],$_POST['stu-familiq'],$_POST['stu-faknom'],$_POST['mail'],$_POST['kurs'],$_POST['spec'],$_POST['obu'])) {
+    if (!$stmt->bind_param("ssisiis", $_POST['stu-ime'],$_POST['stu-familiq'],$_POST['stu-faknom'],$_POST['mail'],$_POST['kurs'],$_POST['spec'],$_POST['obu'])) {
         echo "Binding parameters failed: (" . $mysqli->errno . ") ";
     }
     if ($stmt->execute()) {

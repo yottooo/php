@@ -7,10 +7,20 @@
 <title>Untitled Document</title>
 <link href="inc/cool.css" rel="stylesheet" type="text/css" />
 <link href="inc/paginator.css" rel="stylesheet" type="text/css" />
+<script>
+function edituser(num)
+{
+
+   if (confirm("Редактиране на данни за Потребителя!?"))
+     self.location.href="useredit.php?edit_id="+num;
+}  </script>
 </head>
 <body>
 <center><ul>
 <li><a href="index.php">Начало</a></li>
+      <?php
+if (isset($_SESSION["user_name"]))
+{?>
 <li><a href="coursess.php">Курсове</a></li>
 <li><a href="specialities.php">Специалности</a></li>
 <li><a href="discipline.php">Дисциплини</a></li>
@@ -18,9 +28,10 @@
 <li><a href="Ases.php">Оценки</a></li>
 <li><a href="users.php">Потребители</a></li>&nbsp;
     <li>
+     <?php }   ?>
       <?php
 if (!isset($_SESSION["user_name"]))
-{?>
+{?><a href="useradd.php">Регистрация</a>&nbsp;
       <form action="login.php" method="post">
         <pre>Потребител:    Парола:              </pre>
         <input type="text" name="user_name"  />
@@ -29,8 +40,7 @@ if (!isset($_SESSION["user_name"]))
         &nbsp;
       </form>
       <?php }
-else echo $_SESSION["user_name"]." ".$_SESSION["user_lname"]." ". "<a href='useredit.php'>Профил</a> 
-<a href='logout.php'>Изход</a>&nbsp;";
+else echo $_SESSION["user_name"]." ".$_SESSION["user_lname"]." ". "<a href='logout.php'>Изход</a>&nbsp;";
 ?>
     </li>
 </ul></center>
