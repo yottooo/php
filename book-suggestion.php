@@ -9,4 +9,4 @@ while($row=  mysqli_fetch_array($result))
 {  
 echo "<p>".$row['student_fname']."</p>";  
 }  
-?> 
+ 
