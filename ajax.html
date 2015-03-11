@@ -9,39 +9,32 @@
 body {padding-top: 40px; padding-left: 25%}  
 li {list-style: none; margin:5px 0 5px 0; color:#FF0000}  
 </style> 
-<script type="text/javascript">
-               function book_suggestion()  
-{  
-var book = document.getElementById("book").value;  
-var xhr;    
-    xhr = new XMLHttpRequest();  
-var data = "book_name=" + book;  
-     xhr.open("POST", "book-suggestion.php", true);   
-     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");                    
-     xhr.send(data);  
-     xhr.onreadystatechange = display_data;  
-    function display_data() {  
-     if (xhr.readyState == 4) {  
-      if (xhr.status == 200) {  
-       alert(xhr.responseText);        
-      document.getElementById("suggestion").innerHTML = xhr.responseText;  
-      } else {  
-        alert('There was a problem with the request.');  
-      }  
-     }  
-    }  
-} 
-    </script>
+    <script type="text/javascript">
+    function showHint(str) {
+    if (str.length == 0) {
+        document.getElementById("book").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("suggestion").innerHTML = xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET", "book-suggestion.php?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+</script>
 </head>  
 <body>  
 <form class="well-home span6 form-horizontal" name="ajax-demo" id="ajax-demo">  
 <div class="control-group">  
               <label class="control-label" for="book">Book</label>  
               <div class="controls">  
-                <input type="text" id="book">  
+                <input type="text" id="book" onkeyup="showHint(this.value)" >  
               </div>  
-               <div id="suggestion"></div>
- </div>  
+              <div id="suggestion"  ></div>
  <div class="control-group">  
               <div class="controls">  
                 <button type="submit" class="btn btn-success">Submit</button>  
