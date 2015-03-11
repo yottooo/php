@@ -1,7 +1,6 @@
 <?php
-include "before.html";
-$mysqli = new mysqli('localhost', 'root', '', 'students');
-$mysqli->set_charset('utf8');
+include "before.php";
+
 $result = $mysqli->query("SELECT * FROM courses");
 $result2 = $mysqli->query("SELECT * FROM specialities");
 ?>
@@ -36,12 +35,17 @@ $result2 = $mysqli->query("SELECT * FROM specialities");
 </body>
 </html>
 <?php
+
 if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
-    if (!($stmt = $mysqli->prepare("INSERT INTO students (student_fname,student_lname,student_fnumber,student_email,student_course_id,student_speciality_id,student_education_form) VALUES(?,?,?,?,?,?,?)"))) {
+
+
+    if (!($stmt = $mysqli->prepare("INSERT INTO students (student_fname,student_lname,student_fnumber,student_email,
+        student_course_id,student_speciality_id,student_education_form) VALUES(?,?,?,?,?,?,?)"))) {
         echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
     }
 
-    if (!$stmt->bind_param("ssisiis", $_POST['stu-ime'],$_POST['stu-familiq'],$_POST['stu-faknom'],$_POST['mail'],$_POST['kurs'],$_POST['spec'],$_POST['obu'])) {
+    if (!$stmt->bind_param("ssisiis", $_POST['stu-ime'],$_POST['stu-familiq'],$_POST['stu-faknom'],$_POST['mail'],
+            $_POST['kurs'],$_POST['spec'],$_POST['obu'])) {
         echo "Binding parameters failed: (" . $mysqli->errno . ") ";
     }
     if ($stmt->execute()) {
@@ -51,12 +55,14 @@ if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
 
 
     $lastid = $mysqli->insert_id;
-    echo("<br>" . $lastid . "<br>");
-    if (!($stmt1 = $mysqli->prepare("INSERT INTO users (user_id,user_name,user_fname,user_lname,user_password,user_email) VALUES(?,?,?,?,?,?)"))) {
+
+    if (!($stmt1 = $mysqli->prepare("INSERT INTO users (user_id,user_name,user_fname,user_lname,user_password,user_email)
+          VALUES(?,?,?,?,?,?)"))) {
         echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
     }
 
-    if (!$stmt1->bind_param("isssis", $lastid, $_POST['user-ime'], $_POST['stu-ime'], $_POST['stu-familiq'], $_POST['user-pass'], $_POST['mail'])) {
+    if (!$stmt1->bind_param("isssis", $lastid, $_POST['user-ime'], $_POST['stu-ime'], $_POST['stu-familiq'],
+        $_POST['user-pass'], $_POST['mail'])) {
         echo "Binding parameters failed: (" . $mysqli->errno . ") ";
     }
     if ($stmt1->execute()) {

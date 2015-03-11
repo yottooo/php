@@ -1,4 +1,4 @@
-<?php include 'before.html';?>
+<?php include 'before.php';?>
         <script type="text/javascript">
         function removecourse(num)
 {
@@ -23,8 +23,7 @@
         <th >Операции</th>
       </tr>
     <?php
-    $mysqli = new mysqli('localhost', 'root', '', 'students'); 
-$mysqli->set_charset('utf8'); 
+
 if($_GET["kurs-ime"]!=""){
 $result = $mysqli->query("SELECT * FROM courses where course_name='". $_GET["kurs-ime"] ."'");
 } else {$result = $mysqli->query("SELECT * FROM courses ");}

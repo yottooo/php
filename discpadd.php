@@ -1,4 +1,4 @@
-<?php include 'before.html';?>
+<?php include 'before.php';?>
     <p>Добавяне на Дисциплина<br>
     <form action="" method="POST">
        Име:<input type="text" name="disc-ime" ><br>
@@ -9,8 +9,7 @@
     </body>
 </html>
            <?php
-           $mysqli = new mysqli('localhost', 'root', '', 'students');
-$mysqli->set_charset('utf8'); 
+
                     if (!($stmt = $mysqli->prepare("INSERT INTO subjects(subject_name,subject_workload_lectures,subject_workload_exercises) VALUES(?,?,?)"))) {
                         echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
                     }

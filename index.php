@@ -1,7 +1,5 @@
 <?php
-//session_start();
-//todo suggest
-include 'before.html';
+include 'before.php';
 include 'application/config/autoloader.php';
 $connect = application\Connect::getInstance();
 

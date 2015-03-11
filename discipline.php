@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php include 'before.html';?>
+<?php include 'before.php';?>
 
         <script type="text/javascript">
         function removedis(num)
@@ -30,8 +30,7 @@ function editdis(num)
     <th width="8" scope="col">Операции</th>
   </tr>
     <?php
-    $mysqli = new mysqli('localhost', 'root', '', 'students'); 
-$mysqli->set_charset('utf8'); 
+
 if($_GET["disc-ime"]!=""){
 $result = $mysqli->query("SELECT * FROM subjects where subject_name='". $_GET["disc-ime"] ."'");
 } else {$result = $mysqli->query("SELECT * FROM subjects ");}

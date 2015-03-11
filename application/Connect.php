@@ -4,7 +4,7 @@ class Connect {
 
     private static $instance = NULL;
     private static  $user = 'root';
-    private static $password ="";
+    private static $password ="qwerty";
 
     private function __construct() {
         

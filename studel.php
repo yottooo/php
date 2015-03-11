@@ -1,7 +1,6 @@
 <?php
-include 'before.html';
-$mysqli = new mysqli('localhost', 'root', '', 'students');
-$mysqli->set_charset('utf8'); 
+include 'before.php';
+
 
 $result = $mysqli->query("SELECT * FROM students where student_id=".$_REQUEST['del_id']);
 $row = $result->fetch_assoc();

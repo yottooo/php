@@ -4,7 +4,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<?php include 'before.html';?>
+<?php include 'before.php';?>
         <script type="text/javascript">
         function removespeciality(num)
 {
@@ -31,8 +31,7 @@ and open the template in the editor.
     <th >Операции</th>
   </tr>
       <?php
-    $mysqli = new mysqli('localhost', 'root', '', 'students'); 
-$mysqli->set_charset('utf8'); 
+
 if($_GET["spec-ime"]!=""){
 $result = $mysqli->query("SELECT * FROM specialities where speciality_name_long='". $_GET["spec-ime"] ."'");
 } else {$result = $mysqli->query("SELECT * FROM specialities ");}

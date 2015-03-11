@@ -1,4 +1,4 @@
-<?php include 'before.html';?>
+<?php include 'before.php';?>
     <p>Редактиране на Специалност<br>
     <form action="" method="post">
        Име:<input type="text" name="spec-ime" ><br>
@@ -11,8 +11,7 @@
            
     if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
         
-        $mysqli = new mysqli('localhost', 'root', '', 'students');
-        $mysqli->set_charset('utf8'); 
+
 
         var_dump($mysqli->query("UPDATE specialities SET speciality_name_long='".$_POST['spec-ime']."', speciality_name_short='".$_POST['spec-abr']."' WHERE speciality_id=".$_REQUEST['edit_id']));      
         $mysqli->close();

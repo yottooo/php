@@ -1,7 +1,6 @@
-<?php session_start(); ?>
+
 <?php
-$mysqli = new mysqli('localhost', 'root', '', 'students'); 
-$mysqli->set_charset('utf8'); 
+include 'before.php';
 
 $result = $mysqli->query("SELECT * FROM users where user_name='". $_POST["user_name"] . "' and user_password='" . $_POST["user_password"] . "'");
 

@@ -1,4 +1,4 @@
-<?php include "before.html" ?>
+<?php include "before.php" ?>
     <p>Добавяне на Курс<br>
     <form action="" method="POST">
        Име на Курс:<input type="text" name="kurs-ime" ><br>
@@ -7,8 +7,7 @@
     </body>
 </html>
            <?php
-           $mysqli = new mysqli('localhost', 'root', '', 'students');
-$mysqli->set_charset('utf8'); 
+
                     if (!($stmt = $mysqli->prepare("INSERT INTO courses(course_name) VALUES(?)"))) {
                         echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
                     }

@@ -1,4 +1,4 @@
-<?php include "before.html" ?>
+<?php include "before.php" ?>
     <p>Добавяне на Потребител<br>
     <form action="" method="POST">
       Потребителско Име:<input type="text" name="user-ime" ><br>
@@ -12,8 +12,7 @@
     </body>
 </html>
            <?php
-           $mysqli = new mysqli('localhost', 'root', '', 'students');
-$mysqli->set_charset('utf8'); 
+
  if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
                     if (!($stmt = $mysqli->prepare("INSERT INTO users(user_name,user_fname,user_lname,user_password,user_email) VALUES(?,?,?,?,?)"))) {
                         echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;

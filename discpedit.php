@@ -1,4 +1,4 @@
-<?php include 'before.html';?>
+<?php include 'before.php';?>
     <p>Редактиране на Дисциплина<br>
     <form action="" method="post">
        Име:<input type="text" name="disc-ime" ><br>
@@ -12,8 +12,7 @@
            
     if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
         
-        $mysqli = new mysqli('localhost', 'root', '', 'students');
-        $mysqli->set_charset('utf8'); 
+
 
         var_dump($mysqli->query("UPDATE subjects SET subject_name='".$_POST['disc-ime']."', subject_workload_lectures='".$_POST['disc-L']."', subject_workload_exercises='".$_POST['disc-U']."' WHERE subject_id=".$_REQUEST['edit_id']));      
         $mysqli->close();

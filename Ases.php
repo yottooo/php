@@ -1,6 +1,5 @@
-<?php include "before.html"; 
- $mysqli = new mysqli('localhost', 'root', '', 'students');
-$mysqli->set_charset('utf8');
+<?php include "before.php";
+
 $result = $mysqli->query('SELECT * FROM subjects ');
 ?>
         <script type="text/javascript">

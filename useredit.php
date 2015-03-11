@@ -1,4 +1,4 @@
-<?php include "before.html" ?>
+<?php include "before.php" ?>
     <p>Редактиране на Потребител<br>
     <form action="" method="post">
       Потребителско Име:<input type="text" name="user-ime" ><br>
@@ -15,8 +15,7 @@
            
     if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
         
-        $mysqli = new mysqli('localhost', 'root', '', 'students');
-        $mysqli->set_charset('utf8'); 
+
 
         var_dump($mysqli->query("UPDATE users SET user_name='".$_POST['user-ime']."', user_fname='".$_POST['user-sime']."', user_lname='".$_POST['user-fime']."', user_email='".$_POST['user-mail']."', user_password='".$_POST['user-pass']."' WHERE user_id=".$_REQUEST['edit_id']));      
         $mysqli->close();

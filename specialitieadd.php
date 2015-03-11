@@ -1,4 +1,4 @@
-<?php include 'before.html';?>
+<?php include 'before.php';?>
     <p>Добавяне на Специалност<br>
     <form action="" method="POST">
        Име:<input type="text" name="spec-ime" ><br>
@@ -8,8 +8,7 @@
     </body>
 </html>
            <?php
-           $mysqli = new mysqli('localhost', 'root', '', 'students');
-$mysqli->set_charset('utf8'); 
+
                     if (!($stmt = $mysqli->prepare("INSERT INTO specialities(speciality_name_long,speciality_name_short) VALUES(?,?)"))) {
                         echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
                     }

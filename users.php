@@ -1,5 +1,5 @@
 
-<?php include "before.html" ?>
+<?php include "before.php" ?>
         <script type="text/javascript">
         function removeuser(num)
 {
@@ -28,8 +28,7 @@ function edituser(num)
     <th >Операции</th>
   </tr>
       <?php
-    $mysqli = new mysqli('localhost', 'root', '', 'students'); 
-$mysqli->set_charset('utf8');
+
 
 $query=("SELECT * FROM users where 1");
 if(isset($_GET['user_name']) &&!empty($_GET['user_name'])){
