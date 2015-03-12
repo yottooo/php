@@ -1,6 +1,8 @@
+
 <?php
 include 'before.php';
 include 'application/config/autoloader.php';
+
 $connect = application\Connect::getInstance();
 
 
@@ -44,13 +46,18 @@ $num_subject = $allSubject->rowCount();
 
 
 ?>
+<div class="wrapper">
 <form action="" method="get">
     <fieldset class="search_field">
         <legend>Търсене на студент</legend>
-    <input type="text" name="student_name" placeholder="Име На студента"
-           value="<?php if (!empty($_SESSION['search_by_name'])): echo $_SESSION['search_by_name']; endif; ?>"/>
-        <p>Специалност</p>
+        <div class="input_container">
+    <input type="text" name="student_name" placeholder="Име На студента" id="book" onkeyup="showHint(this.value)"
+           value="<?php if (!empty($_SESSION['search_by_name'])): echo $_SESSION['search_by_name']; endif; ?>" autocomplete="off"/>
+        <ul id="suggestion" ></ul>
+            </div>
+
     <div>
+        <p>Специалност</p>
         <select name="searchBySpeciality">
             <option value="0">Всички</option>
             <?php foreach ($allSpeciality as $speciality): ?>
@@ -76,20 +83,51 @@ $num_subject = $allSubject->rowCount();
     </div>
         </fieldset>
 </form>
-<?php
-$search_query = null;
-if (isset($_SESSION['search_query'])) {
-    $search_query = $_SESSION['search_query'];
-}
-$paginator = new \application\Paginator($connect, $query, $search_query);
 
-$pagin_result = $paginator->pagination();
-$grid = new application\StudentTable();
+<section class="grid" >
+    <?php
+    $search_query = null;
+    if (isset($_SESSION['search_query'])) {
+        $search_query = $_SESSION['search_query'];
+    }
+    $paginator = new \application\Paginator($connect, $query, $search_query);
 
-$grid->createTable($pagin_result, $connect->query(application\Search::getAllSubjects()), $num_subject);
-$paginator->links();
-?>
+    $pagin_result = $paginator->pagination();
+    $grid = new application\StudentTable();
 
+    $grid->createTable($pagin_result, $connect->query(application\Search::getAllSubjects()), $num_subject);
+
+    ?>
+    <div class="pagi"><?php echo $paginator->links();?></div>
+</section>
+
+</div>
+<script type="text/javascript">
+    function showHint(str) {
+        if (str.length == 0) {
+            document.getElementById("book").innerHTML = "";
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("suggestion").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "student-suggestion.php?q=" + str, true);
+            xmlhttp.send();
+        }
+    }
+
+    function set_item(item) {
+        // change input value
+        $('#book').val(item);
+        // hide proposition list
+        $('#suggestion').hide();
+    }
+</script>
+
+</body>
 </div>
 </body>
 </html>

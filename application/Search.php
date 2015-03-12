@@ -41,6 +41,10 @@ class Search
                   JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
               GROUP BY 1";
     }
+    public function studentSuggest($student_name)
+    {
+        return "select student_fname from students where student_fname LIKE '$student_name%' limit 0,5";
+    }
 
     public static function getAllSubjects()
     {

@@ -4,8 +4,8 @@
 ul li{
 	display:inline
 }
- a:{text-decoration:none}
- a:link { color: #06F}
+
+ a:link { color:black;}
  a:visited { color: #09F}
  a:active { color: #0CF}
 a:hover{text-decoration:underline; }
@@ -16,17 +16,41 @@ border-radius:15px;
 width:100%;
 
 }
+tr:nth-child(even) {background: #CCC}
+tr:nth-child(odd) {background: #FFF}
 
  tr,td,th{
 width:15%;
 	text-align:center;
 	border: 1px solid;
-border-radius:15px;
+border-radius:5px;
 border-color: #09F;
 
 }
 form {
     position: relative;
-margin-left: 300px;
- 
+    margin-left: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+
 }
+
+.input_container ul {
+   margin: 0px;
+    width: 115px;
+    border: 1px solid #eaeaea;
+    cursor: pointer;
+    background: #f3f3f3;
+    list-style: none;
+}
+
+
+.input_container ul li:nth-child(odd) {font-weight: bold; margin-left:-30px;}
+.input_container ul li:hover{
+   opacity: 0.5;
+}
+.search_field{width:20%;padding:10px;margin-left:20%;}
+.wrapper{padding: 0px;}
+.pagi{padding: 10px;margin: 0 auto;}
+
+
