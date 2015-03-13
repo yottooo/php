@@ -2,7 +2,7 @@
 <?php
 include 'before.php';
 include 'application/config/autoloader.php';
-
+  
 $connect = application\Connect::getInstance();
 
 
@@ -91,14 +91,17 @@ $num_subject = $allSubject->rowCount();
         $search_query = $_SESSION['search_query'];
     }
     $paginator = new \application\Paginator($connect, $query, $search_query);
-
+   
     $pagin_result = $paginator->pagination();
+   
     $grid = new application\StudentTable();
 
     $grid->createTable($pagin_result, $connect->query(application\Search::getAllSubjects()), $num_subject);
 
     ?>
-    <div class="pagi"><?php echo $paginator->links();?></div>
+    <div class="pagi"><?php echo $paginator->links();
+  
+    ?></div>
 </section>
 
 </div>

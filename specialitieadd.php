@@ -8,7 +8,7 @@
     </body>
 </html>
            <?php
-
+ if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
                     if (!($stmt = $mysqli->prepare("INSERT INTO specialities(speciality_name_long,speciality_name_short) VALUES(?,?)"))) {
                         echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
                     }
@@ -17,4 +17,5 @@
                             echo "Binding parameters failed: (" . $stmt1->errno . ") " . $stmt1->error;
                         }
                         if ($stmt->execute()){ echo "Записа беше успешен :)";}       
+ }
 ?>

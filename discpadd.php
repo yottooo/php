@@ -9,7 +9,7 @@
     </body>
 </html>
            <?php
-
+ if ('post' === strtolower($_SERVER['REQUEST_METHOD'])) {
                     if (!($stmt = $mysqli->prepare("INSERT INTO subjects(subject_name,subject_workload_lectures,subject_workload_exercises) VALUES(?,?,?)"))) {
                         echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
                     }
@@ -18,4 +18,5 @@
                             echo "Binding parameters failed: (" . $stmt1->errno . ") " . $stmt1->error;
                         }
                         if ($stmt->execute()){ echo "Записа беше успешен :)";}       
+ }
 ?>

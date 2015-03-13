@@ -5,7 +5,7 @@ ul li{
 	display:inline
 }
 
- a:link { color:black;}
+ a:link { color:blue;}
  a:visited { color: #09F}
  a:active { color: #0CF}
 a:hover{text-decoration:underline; }
@@ -37,12 +37,13 @@ form {
 
 .input_container ul {
    margin: 0px;
-    width: 115px;
+    width: 215px;
     border: 1px solid #eaeaea;
     cursor: pointer;
     background: #f3f3f3;
     list-style: none;
 }
+#book{width: 215px;}
 
 
 .input_container ul li:nth-child(odd) {font-weight: bold; margin-left:-30px;}

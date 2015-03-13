@@ -4,15 +4,18 @@ class Paginator
 {
 
     private $connection;
-    private $page;
+    public $page;
     private $start = 0;
-    private $limit;
-    private $total;
+    public $limit;
+   public $total;
     private $query_string_search;
     protected $query;
 
     public function __construct($connection, $query, $query_string_search = '', $limit = 15)
     {
+         if(!empty($_GET['page']) && !is_numeric($_GET['page'])){
+              header("Location: .");
+         }
         $this->query_string_search = $query_string_search;
         if (!isset($_GET['page'])) {
             $_GET['page'] = 1;
@@ -29,6 +32,12 @@ class Paginator
             throw  new InvalidArgumentException("set sql query");
         }
         $this->limit = $limit;
+         $rows = $this->connection->query($this->query);
+        $num_row = $rows->rowCount();
+        $this->total = ceil($num_row / $this->limit);
+             if( $this->total<$_GET['page'] ){
+       header("Location: .");
+    }
     }
 
     public function pagination()
@@ -42,15 +51,19 @@ class Paginator
 
     public function links()
     {
+     
         $rows = $this->connection->query($this->query);
         $num_row = $rows->rowCount();
         $this->total = ceil($num_row / $this->limit);
+    
         if ($this->page > 1) {
+             echo "<a href='?page=1". "' class='button'>Първа страница</a>";
             if ($this->query_string_search == '') {
                 echo "<a href='?page=" . ($this->page - 1) . "' class='button'>PREVIOUS</a>";
             } else {
                 echo "<a href='?page=" . ($this->page - 1) . '&' . $this->query_string_search . "' class='button'>PREVIOUS</a>";
             }
+            
         }
         if ($this->page != $this->total) {
             if ($this->query_string_search == '') {
@@ -60,7 +73,8 @@ class Paginator
             }
 
         }
-
+        
+ echo "<a href='?page=" . ($this->total) . '&' . $this->query_string_search . "' class='button'>Последна страница</a>";
         echo "<ul class='page'>";
         for ($i = 1; $i <= $this->total; $i++) {
             if ($i == $this->page) {

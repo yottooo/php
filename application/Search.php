@@ -35,15 +35,15 @@ class Search
               GROUP_CONCAT( SUBJECT_WORKLOAD_LECTURES ORDER BY SUBJECT_ID ) AS LISTOF_SUBJECT_WORKLOAD_LECTURES,
               GROUP_CONCAT( SUBJECT_WORKLOAD_EXERCISES ORDER BY SUBJECT_ID ) AS LISTOF_SUBJECT_WORKLOAD_EXERCISES
             FROM students
-                  JOIN specialities SP ON STUDENT_SPECIALITY_ID = SPECIALITY_ID
-                  JOIN courses C ON C.COURSE_ID = STUDENT_COURSE_ID
-                  JOIN students_assessments ON SA_STUDENT_ID = STUDENT_ID
-                  JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
+                 LEFT JOIN specialities SP ON STUDENT_SPECIALITY_ID = SPECIALITY_ID
+                 LEFT JOIN courses C ON C.COURSE_ID = STUDENT_COURSE_ID
+                 LEFT JOIN students_assessments ON SA_STUDENT_ID = STUDENT_ID
+                LEFT  JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
               GROUP BY 1";
     }
-    public function studentSuggest($student_name)
+    public static function studentSuggest($student_name)
     {
-        return "select student_fname from students where student_fname LIKE '$student_name%' limit 0,5";
+        return "select student_fname,student_lname from students where student_fname LIKE '$student_name%' limit 0,5";
     }
 
     public static function getAllSubjects()
@@ -136,10 +136,10 @@ class Search
                       GROUP_CONCAT( SUBJECT_WORKLOAD_LECTURES ORDER BY SUBJECT_ID ) AS LISTOF_SUBJECT_WORKLOAD_LECTURES,
                       GROUP_CONCAT( SUBJECT_WORKLOAD_EXERCISES ORDER BY SUBJECT_ID ) AS LISTOF_SUBJECT_WORKLOAD_EXERCISES
                 FROM students
-                      JOIN specialities SP ON STUDENT_SPECIALITY_ID = SPECIALITY_ID
-                      JOIN courses C ON C.COURSE_ID = STUDENT_COURSE_ID
-                      JOIN students_assessments ON SA_STUDENT_ID = STUDENT_ID
-                      JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
+                    left  JOIN specialities SP ON STUDENT_SPECIALITY_ID = SPECIALITY_ID
+                    left  JOIN courses C ON C.COURSE_ID = STUDENT_COURSE_ID
+                    left  JOIN students_assessments ON SA_STUDENT_ID = STUDENT_ID
+                    left  JOIN subjects ON SUBJECT_ID = SA_SUBJECT_ID
                       WHERE
                         {$query_search_by_name}
 
